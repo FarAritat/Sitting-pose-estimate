@@ -28,7 +28,7 @@ cap.set(3,224)
 cap.set(4,224)
 output_placeholder = st.empty()
 pred_placeholder = st.empty()
-MODEL_URL = "https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/resolve/main/Sitting-Poseture-Estimate-model-1-final.pkl"
+MODEL_URL = "https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/resolve/main/Sitting-Poseture-Estimate-model-2-final.pkl"
 urllib.request.urlretrieve(MODEL_URL, "Sitting-Poseture-Estimate-model-1-final.pkl")
 learn_inf = load_learner('Sitting-Poseture-Estimate-model-1-final.pkl')
 
@@ -48,13 +48,13 @@ def frame():
     _, frame = cap.read()
     frame2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     mp_model = pose.process(frame2)
-    if mp_model.pose_landmarks:
+    '''if mp_model.pose_landmarks:
         mpDraw.draw_landmarks(frame2, mp_model.pose_landmarks,mpPose.POSE_CONNECTIONS)
         for id,lm in enumerate(mp_model.pose_landmarks.landmark):
             h ,w ,c  = frame2.shape
             print(id,lm)
             cx ,cy = int(lm.x * w), int(lm.y * h)
-            cv2.circle(frame2, (cx,cy),4, (255, 0, 0), cv2.FILLED)
+            cv2.circle(frame2, (cx,cy),4, (255, 0, 0), cv2.FILLED)'''
     FRAME_WINDOW.image(frame2)
 
 def main():
@@ -66,7 +66,7 @@ def main():
         result = predict(learn_inf, frame2[1])
         if mp_model.pose_landmarks:
             if result[0]=="00":
-                output_placeholder.warning(f"Unknow with the probability of {result[1]:.02f}%")
+                output_placeholder.warning(f"Bad sit with the probability of {result[1]:.02f}%")
             if result[0]=="01":
                 output_placeholder.success(f"Good sit with the probability of {result[1]:.02f}%")
             if result[0]=="02":
