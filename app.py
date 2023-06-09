@@ -28,7 +28,7 @@ cap.set(3,224)
 cap.set(4,224)
 output_placeholder = st.empty()
 pred_placeholder = st.empty()
-MODEL_URL = "https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/resolve/main/Sitting-Poseture-Estimate-model-2-final.pkl"
+MODEL_URL = "https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/resolve/main/Sitting-Poseture-Estimate-model-6-final.pkl"
 urllib.request.urlretrieve(MODEL_URL, "Sitting-Poseture-Estimate-model-1-final.pkl")
 learn_inf = load_learner('Sitting-Poseture-Estimate-model-1-final.pkl')
 
@@ -76,3 +76,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#https://colab.research.google.com/github/kevinash/awesome-ai/blob/main/notebooks/6_PosesAndAction/Pose_MediaPipe.ipynb#scrollTo=nW2TjFyhLvVH
+#https://developers.google.com/mediapipe/solutions/vision/pose_landmarker/python
+#https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/tree/main
+#https://github.com/FarAritat/Sitting-pose-estimate
+#https://app.roboflow.com/fararitat/sitting-poseture-estimates/images/NwICAPJ81ro6UQwrUbfU?jobStatus=assigned&annotationJob=Wq7AFPCutXxhfw6wnvly
