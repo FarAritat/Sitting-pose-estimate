@@ -70,7 +70,7 @@ def main():
             if result[0]=="01":
                 output_placeholder.success(f"Good sit with the probability of {result[1]:.02f}%")
             if result[0]=="02":
-                output_placeholder.error(f"Can't analyze")
+                output_placeholder.error(f"Text neck with the probability of {result[1]:.02f}%")
         else:
             output_placeholder.error("Please stay on camera   *Tips : Keep your face on the camera*")
 
