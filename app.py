@@ -11,7 +11,6 @@ from pathlib import Path
 import urllib.request
 import pathlib
 import mediapipe as mp
-import time
 
 # For online hosting
 from streamlit_webrtc import webrtc_streamer
