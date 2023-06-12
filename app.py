@@ -90,7 +90,7 @@ def segment_out(image, segment_model, bg_color):
 
 def process4webcam(image):
     # Flip horizontally
-    image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
+    image = cv2.flip(image, 1)
     return image
 
 
@@ -191,11 +191,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# https://colab.research.google.com/github/kevinash/awesome-ai/blob/main/notebooks/6_PosesAndAction/Pose_MediaPipe.ipynb#scrollTo=nW2TjFyhLvVH
-# https://developers.google.com/mediapipe/solutions/vision/pose_landmarker/python
-# https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/tree/main
-# https://github.com/FarAritat/Sitting-pose-estimate
-# https://app.roboflow.com/fararitat/sitting-poseture-estimates/images/NwICAPJ81ro6UQwrUbfU?jobStatus=assigned&annotationJob=Wq7AFPCutXxhfw6wnvly
 
 # python -m streamlit run app.py
