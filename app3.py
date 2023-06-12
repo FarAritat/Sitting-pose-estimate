@@ -42,22 +42,22 @@ def predict(learn, img):
         return "02",pred_prob[pred_idx]*100
         #st.warning(f"Unknow with the probability of {pred_prob[pred_idx]*100:.02f}%")
 
-def frame():
+'''def frame():
     global frame2,mp_model
     _, frame = cap.read()
     frame2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     mp_model = pose.process(frame2)
     if mp_model.pose_landmarks:
         mpDraw.draw_landmarks(frame2, mp_model.pose_landmarks,mpPose.POSE_CONNECTIONS)
-        #for id,lm in enumerate(mp_model.pose_landmarks.landmark):
-        #    h ,w ,c  = frame2.shape
+        for id,lm in enumerate(mp_model.pose_landmarks.landmark):
+            h ,w ,c  = frame2.shape
         #    print(id,lm)
         #    cx ,cy = int(lm.x * w), int(lm.y * h)
-        #    cv2.circle(frame2, (cx,cy),4, (255, 0, 0), cv2.FILLED)
+        #    cv2.circle(frame2, (cx,cy),4, (255, 0, 0), cv2.FILLED)'''
         
 
 def segment():
-    global output_image
+    global output_image,mp_model
     # For static images:
     IMAGE_FILES = []
     BG_COLOR = (192, 192, 192) # gray
@@ -102,9 +102,10 @@ def segment():
         # pass by reference.
         image.flags.writeable = False
         results = selfie_segmentation.process(image)
+        
 
         image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Draw selfie segmentation on the background image.
         # To improve segmentation around boundaries, consider applying a joint
@@ -121,15 +122,14 @@ def segment():
           bg_image[:] = BG_COLOR
         output_image = np.where(condition, image, bg_image)
 
-        cv2.imshow('MediaPipe Selfie Segmentation', output_image)
-
-def main():
-    st.title('Sitting Poseture Estimate')
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-    while True:
-        frame()
-        result = predict(learn_inf, frame2[1])
+        mp_model = pose.process(output_image)
+        if mp_model.pose_landmarks:
+            mpDraw.draw_landmarks(output_image, mp_model.pose_landmarks,mpPose.POSE_CONNECTIONS)
+            for id,lm in enumerate(mp_model.pose_landmarks.landmark):
+                h ,w ,c  = output_image.shape
+        output_image = cv2.cvtColor(output_image, cv2.COLOR_BGR2RGB)
+        FRAME_WINDOW.image(output_image)
+        result = predict(learn_inf, output_image)
         if mp_model.pose_landmarks:
             if result[0]=="00":
                 output_placeholder.warning(f"Bad sit with the probability of {result[1]:.02f}%")
@@ -140,11 +140,12 @@ def main():
         else:
             output_placeholder.error("Please stay on camera   *Tips : Keep your face on the camera*")
 
+def main():
+    st.title('Sitting Poseture Estimate')
+    st.markdown("<hr>", unsafe_allow_html=True)
+    while True:
+        segment()
+        
+
 if __name__ == '__main__':
     main()
-
-#https://colab.research.google.com/github/kevinash/awesome-ai/blob/main/notebooks/6_PosesAndAction/Pose_MediaPipe.ipynb#scrollTo=nW2TjFyhLvVH
-#https://developers.google.com/mediapipe/solutions/vision/pose_landmarker/python
-#https://huggingface.co/spaces/farrr/Sitting-Poseture-Estimate/tree/main
-#https://github.com/FarAritat/Sitting-pose-estimate
-#https://app.roboflow.com/fararitat/sitting-poseture-estimates/images/NwICAPJ81ro6UQwrUbfU?jobStatus=assigned&annotationJob=Wq7AFPCutXxhfw6wnvly
