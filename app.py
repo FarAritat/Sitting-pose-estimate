@@ -27,7 +27,7 @@ mpDraw = mp.solutions.drawing_utils
 mpPose = mp.solutions.pose
 mp_selfie_segmentation = mp.solutions.selfie_segmentation
 pose = mpPose.Pose()
-isLocalhost = False
+isLocalhost = True
 
 # python -m streamlit run app.py
 FRAME_WINDOW = st.image([])
