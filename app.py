@@ -155,8 +155,8 @@ def cam_button():
        num_cam=1  
 
 def main():
-    cam_button()
     if isLocalhost:
+        cam_button()
         cap = cv2.VideoCapture(num_cam)
         cap.set(3, 224)
         cap.set(4, 224)
