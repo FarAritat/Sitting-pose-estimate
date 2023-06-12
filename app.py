@@ -27,7 +27,7 @@ mpDraw = mp.solutions.drawing_utils
 mpPose = mp.solutions.pose
 mp_selfie_segmentation = mp.solutions.selfie_segmentation
 pose = mpPose.Pose()
-isLocalhost = True
+isLocalhost = False
 
 # python -m streamlit run app.py
 FRAME_WINDOW = st.image([])
@@ -109,10 +109,6 @@ def predict_from_segment(segment_image, learn_inf):
         elif result[0] == "01":
             output_type = "success"
             output_message = f"Good sit with the probability of {result[1]:.02f}%"
-
-        elif result[0] == "02":
-            output_type = "warning"
-            output_message = f"Text neck with the probability of {result[1]:.02f}%"
 
     return output_message, output_type
 
