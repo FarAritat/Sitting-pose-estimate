@@ -1,4 +1,9 @@
+opencv-python-headless
 fastai==2.7.12
 opencv-python==4.7.0.72
 numpy==1.24.3
 mediapipe==0.10.0
+urllib3==2.0.2
+pathy==0.10.1
+mdurl==0.1.2
+protobuf==3.20
