@@ -11,6 +11,7 @@ from pathlib import Path
 import urllib.request
 import pathlib
 import mediapipe as mp
+import time
 
 # For online hosting
 from streamlit_webrtc import webrtc_streamer
@@ -53,6 +54,7 @@ SEGMENT_MODEL = mp_selfie_segmentation.SelfieSegmentation(model_selection=0)
 
 
 def predict(learn, img):
+    time.sleep(1)
     pred, pred_idx, pred_prob = learn.predict(img)
     if pred == '00':
         return "00", pred_prob[pred_idx]*100
@@ -95,7 +97,7 @@ def process4webcam(image):
 
 
 def predict_from_segment(segment_image, learn_inf):
-
+    
     result = predict(learn_inf, segment_image)
     tolerance = 0.01
 
