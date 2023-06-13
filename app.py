@@ -54,7 +54,6 @@ SEGMENT_MODEL = mp_selfie_segmentation.SelfieSegmentation(model_selection=0)
 
 
 def predict(learn, img):
-    time.sleep(1)
     pred, pred_idx, pred_prob = learn.predict(img)
     if pred == '00':
         return "00", pred_prob[pred_idx]*100
@@ -117,6 +116,7 @@ def predict_from_segment(segment_image, learn_inf):
 
 def callback(frame: av.VideoFrame) -> av.VideoFrame:
     # 24 bit -> 8 bit for each channel
+    time.sleep(1)
     frame = frame.to_ndarray(format="bgr24")
     frame = process4webcam(frame)
     frame = segment_out(frame,
